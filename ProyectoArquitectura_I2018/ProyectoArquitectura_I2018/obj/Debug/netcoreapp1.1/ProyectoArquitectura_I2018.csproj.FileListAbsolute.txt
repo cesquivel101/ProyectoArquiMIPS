@@ -1,0 +1,9 @@
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\bin\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.deps.json
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\bin\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.runtimeconfig.json
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\bin\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.runtimeconfig.dev.json
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\obj\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.csprojResolveAssemblyReference.cache
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\obj\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.AssemblyInfo.cs
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\bin\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.dll
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\bin\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.pdb
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\obj\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.dll
+C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura_I2018\obj\Debug\netcoreapp1.1\ProyectoArquitectura_I2018.pdb
