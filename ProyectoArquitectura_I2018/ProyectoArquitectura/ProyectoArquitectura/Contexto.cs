@@ -20,10 +20,10 @@ namespace ProyectoArquitectura
             this.PosicionInstruccionFinal = -1;
         }
 
-        public Contexto(int idHilillo, int posicionInstruccionFinal)
+        public Contexto(int pc,int idHilillo, int posicionInstruccionFinal)
         {
             inicializarRegistros(-1);
-            this.PC = 0;
+            this.PC = pc;
             this.IDHilillo = idHilillo;
             this.PosicionInstruccionFinal = posicionInstruccionFinal;
 
@@ -36,6 +36,20 @@ namespace ProyectoArquitectura
             {
                 this.Registros.Add(valorInicial);
             }
+        }
+
+        public void imprimir()
+        {
+            Console.WriteLine("---------------");
+            Console.WriteLine("Contexto");
+            Console.WriteLine("\tRegistros:");
+            foreach (int registro in this.Registros)
+            {
+                Console.Write(registro + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("\tPC:" + this.PC + "; IDHilillo: " + this.IDHilillo + "; PosInsFinal: " + this.PosicionInstruccionFinal);
+            Console.WriteLine("---------------");
         }
     }
 }
