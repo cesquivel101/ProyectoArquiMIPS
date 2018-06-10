@@ -31,9 +31,10 @@ namespace ProyectoArquitectura
 
         public void inicializarRegistros(int valorInicial)
         {
+            this.Registros = new List<int>();
             for (int i = 0; i < this.Registros.Count; i++)
             {
-                this.Registros[i] = valorInicial;
+                this.Registros.Add(valorInicial);
             }
         }
     }

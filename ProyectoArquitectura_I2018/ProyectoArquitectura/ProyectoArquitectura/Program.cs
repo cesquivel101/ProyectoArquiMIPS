@@ -6,7 +6,9 @@ namespace ProyectoArquitectura
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Proceso proc = new Proceso();
+            proc.iniciarProceso();
+            Console.ReadKey();
         }
     }
 }

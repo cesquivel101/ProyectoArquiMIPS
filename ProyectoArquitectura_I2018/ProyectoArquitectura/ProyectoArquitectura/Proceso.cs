@@ -30,7 +30,7 @@ namespace ProyectoArquitectura
 
         public void iniciarProceso()
         {
-           
+            mem.Imprimir();
         }
 
         private void inicializarMemoria()

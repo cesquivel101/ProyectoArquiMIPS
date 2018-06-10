@@ -21,14 +21,28 @@ namespace ProyectoArquitectura.Helpers
             List<Bloque> instruccionesParseadas = new List<Bloque>();
             for(int j = 0; j < instruccionesHilillo.Count; j+= Constantes.Num_Valores_X_Palabra_Instruccion)
             {
+               
                 string[] insParseada = new string[cantidadDeValoresXBloque];
 
                 for (int i = 0; i < Constantes.Num_Palabras_X_Bloque; i++)
                 {
-                    string[] insActual = instruccionesHilillo[j + i].Split(' ');
-                    foreach (string actual in insActual)
+                    int posicionInstruccionHilillo = j + i;
+                    if (posicionInstruccionHilillo < instruccionesHilillo.Count)
                     {
-                        insParseada[i] = actual;
+                        string[] insActual = instruccionesHilillo[posicionInstruccionHilillo].Split(' ');
+                        for (int k = 0; k < insActual.Length; k++)
+                        {
+                            int posicion = i * insActual.Length + k;
+                            insParseada[posicion] = insActual[k];
+                        }
+                    }
+                    else
+                    {
+                        for (int k = 0; k < Constantes.Num_Valores_X_Palabra_Instruccion; k++)
+                        {
+                            int posicion = i * Constantes.Num_Valores_X_Palabra_Instruccion + k;
+                            insParseada[posicion] = "-1";
+                        }
                     }
                     
                 }

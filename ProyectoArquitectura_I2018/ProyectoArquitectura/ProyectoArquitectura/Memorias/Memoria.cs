@@ -14,7 +14,23 @@ namespace ProyectoArquitectura.Memorias
 
         public Memoria()
         {
-            
+            this.Datos = new List<Bloque>();
+            this.Instrucciones = new List<Bloque>();
+        }
+
+        public void Imprimir()
+        {
+            Console.WriteLine("Datos");
+            foreach (Bloque b in this.Datos)
+            {
+                b.imprimir();
+            }
+            Console.WriteLine("-------------");
+            Console.WriteLine("Instrucciones");
+            foreach (Bloque b in this.Instrucciones)
+            {
+                b.imprimir();
+            }
         }
 
 
