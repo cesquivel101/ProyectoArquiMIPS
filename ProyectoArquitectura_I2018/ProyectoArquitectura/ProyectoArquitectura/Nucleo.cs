@@ -12,6 +12,8 @@ namespace ProyectoArquitectura
         public Cache CacheInstrucciones { get; set; }
         //Como maximo hay 2
         public List<InformacionDeEjecucion> InfoEjecucion{ get; set; }
+        //Como maximo hay 2
+        public List<IR> RegistroInstruccion { get; set; }
 
         public Nucleo(int numInfoEjecucion, int numeroBloques)
         {
@@ -22,6 +24,7 @@ namespace ProyectoArquitectura
             {
                 this.InfoEjecucion.Add(new InformacionDeEjecucion());
             }
+            this.RegistroInstruccion = new List<IR>();
         }
     }
 }
