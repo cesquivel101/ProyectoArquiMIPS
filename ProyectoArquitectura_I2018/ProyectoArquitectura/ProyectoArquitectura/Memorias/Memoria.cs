@@ -1,6 +1,8 @@
 ﻿using ProyectoArquitectura.Bloques;
+using ProyectoArquitectura.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace ProyectoArquitectura.Memorias
@@ -9,5 +11,13 @@ namespace ProyectoArquitectura.Memorias
     {
         public List<Bloque> Datos { get; set; }
         public List<Bloque> Instrucciones { get; set; }
+
+        public Memoria()
+        {
+            
+        }
+
+
+
     }
 }

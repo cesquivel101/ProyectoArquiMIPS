@@ -17,10 +17,21 @@ namespace ProyectoArquitectura.Helpers
 
         private static List<Bloque> parsearInstrucciones(List<string> instruccionesHilillo)
         {
+            int cantidadDeValoresXBloque = Constantes.Num_Valores_X_Palabra_Instruccion * Constantes.Num_Palabras_X_Bloque;
             List<Bloque> instruccionesParseadas = new List<Bloque>();
-            foreach (string instruccion in instruccionesHilillo)
+            for(int j = 0; j < instruccionesHilillo.Count; j+= Constantes.Num_Valores_X_Palabra_Instruccion)
             {
-                string[] insParseada = instruccion.Split(' ');
+                string[] insParseada = new string[cantidadDeValoresXBloque];
+
+                for (int i = 0; i < Constantes.Num_Palabras_X_Bloque; i++)
+                {
+                    string[] insActual = instruccionesHilillo[j + i].Split(' ');
+                    foreach (string actual in insActual)
+                    {
+                        insParseada[i] = actual;
+                    }
+                    
+                }
                 instruccionesParseadas.Add(new Bloque(insParseada));
             }
             return instruccionesParseadas;
