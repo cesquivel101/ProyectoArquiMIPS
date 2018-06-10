@@ -11,5 +11,7 @@ namespace ProyectoArquitectura.Helpers
         public const int Posicion_Inicial_Memoria_instrucciones = 384;
         public const int Numero_Bloques_Memoria_Datos = 24;
         public const int Numero_Bloques_Memoria_Instrucciones = 40;
+        public const int Numero_Hilos_Bloque_0 = 2;
+        public const int Numero_Hilos_Bloque_1 = 1;
     }
 }

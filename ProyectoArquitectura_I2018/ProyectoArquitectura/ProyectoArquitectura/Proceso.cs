@@ -12,17 +12,25 @@ namespace ProyectoArquitectura
     {
         Memoria mem;
         List<Contexto> contexto;
+        Nucleo nucleo0;
+        Nucleo nucleo1;
+        Bus busDatos;
+        Bus busInstrucciones;
         public Proceso()
         {
             this.mem = new Memoria();
             this.contexto = new List<Contexto>();
+            this.nucleo0 = new Nucleo(Constantes.Numero_Hilos_Bloque_0);
+            this.nucleo1 = new Nucleo(Constantes.Numero_Hilos_Bloque_1);
+            busDatos = new Bus();
+            busInstrucciones = new Bus();
 
             inicializarMemoria();
         }
 
         public void iniciarProceso()
         {
-
+           
         }
 
         private void inicializarMemoria()
