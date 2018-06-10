@@ -16,12 +16,13 @@ namespace ProyectoArquitectura
         Nucleo nucleo1;
         Bus busDatos;
         Bus busInstrucciones;
+
         public Proceso()
         {
             this.mem = new Memoria();
             this.contexto = new List<Contexto>();
-            this.nucleo0 = new Nucleo(Constantes.Numero_Hilos_Bloque_0);
-            this.nucleo1 = new Nucleo(Constantes.Numero_Hilos_Bloque_1);
+            this.nucleo0 = new Nucleo(Constantes.Numero_Bloques_Nucleo_0, Constantes.Numero_Hilos_Bloque_0);
+            this.nucleo1 = new Nucleo(Constantes.Numero_Bloques_Nucleo_0,Constantes.Numero_Hilos_Bloque_1);
             busDatos = new Bus();
             busInstrucciones = new Bus();
 
@@ -46,26 +47,6 @@ namespace ProyectoArquitectura
             inicializarContexto(todosBytes);
 
         }
-
-        //private void inicializarMemoriaInstrucciones()
-        //{
-        //    string currentDir = Directory.GetCurrentDirectory();
-        //    string previousDir = currentDir.Substring(0, currentDir.LastIndexOf('\\'));
-        //    DirectoryInfo di = new DirectoryInfo(previousDir);
-        //    int posicionActualMemoriaInstrucciones = Constantes.Posicion_Inicial_Memoria_instrucciones;
-        //    int posicionInicialPC = Constantes.Posicion_Inicial_Memoria_instrucciones;
-        //    int contadorIdsHilillos = 0;
-        //    foreach (var file in di.GetFiles("*.txt"))
-        //    {
-        //        List<Bloque> instrucciones = LectorHilillos.leerHilillo(file.FullName);
-        //        posicionActualMemoriaInstrucciones += instrucciones.Count * Constantes.Num_Palabras_X_Bloque * Constantes.Num_Valores_X_Palabra_Instruccion;
-        //        int posicionInstruccionFinal = posicionActualMemoriaInstrucciones - Constantes.Num_Valores_X_Palabra_Instruccion;
-        //        contexto.Add(new Contexto(posicionInicialPC,contadorIdsHilillos, posicionInstruccionFinal));
-        //        mem.Instrucciones.AddRange(instrucciones);
-        //        posicionInicialPC = posicionActualMemoriaInstrucciones;
-        //        //printHilillo(instrucciones);
-        //    }
-        //}
 
         private void inicializarMemoriaInstrucciones(List<string> todosBytes)
         {
@@ -116,7 +97,7 @@ namespace ProyectoArquitectura
         {
             for (int i = 0; i < Constantes.Numero_Bloques_Memoria_Datos; i++)
             {
-                string[] datos = new string[] { "-1", "-1", "-1", "-1" };
+                string[] datos = new string[] { "1", "1", "1", "1" };
                 mem.Datos.Add(new Bloque(datos));
             }
         }

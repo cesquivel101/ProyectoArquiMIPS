@@ -12,6 +12,9 @@ namespace ProyectoArquitectura
         //Esto lo usamos para saber cuando se acaba el hilillo
         //Lo calculamos en el momento en que estamos cargando los hilillos a memoria
         public int PosicionInstruccionFinal { get; set; }
+        //No estoy seguro si va aca
+        public int Quantum { get; set; }
+
         public Contexto()
         {
             inicializarRegistros(-1);

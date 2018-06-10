@@ -6,11 +6,16 @@ namespace ProyectoArquitectura.Bloques
 {
     public class Bloque
     {
+        
         public List<int> Valores { get; set; }
 
-        public Bloque()
+        public Bloque(int tamanioBloque, int valorInicializacion)
         {
-            this.Valores = new List<int> { 0};
+            this.Valores = new List<int>();
+            for (int i = 0; i < tamanioBloque; i++)
+            {
+                this.Valores.Add(valorInicializacion);
+            }
         }
 
         public Bloque(string[] valores)

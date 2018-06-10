@@ -1,4 +1,5 @@
 ﻿using ProyectoArquitectura.Caches;
+using ProyectoArquitectura.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,10 +13,10 @@ namespace ProyectoArquitectura
         //Como maximo hay 2
         public List<InformacionDeEjecucion> InfoEjecucion{ get; set; }
 
-        public Nucleo(int numInfoEjecucion)
+        public Nucleo(int numInfoEjecucion, int numeroBloques)
         {
-            this.CacheDatos = new Cache();
-            this.CacheInstrucciones = new Cache();
+            this.CacheDatos = new Cache(numeroBloques, Constantes.Tipo_Cache_Datos);
+            this.CacheInstrucciones = new Cache(numeroBloques, Constantes.Tipo_Cache_Instrucciones);
             this.InfoEjecucion = new List<InformacionDeEjecucion>();
             for (int i = 0; i < numInfoEjecucion; i++)
             {
