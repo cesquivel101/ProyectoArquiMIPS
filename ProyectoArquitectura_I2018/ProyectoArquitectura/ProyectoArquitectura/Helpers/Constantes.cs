@@ -27,5 +27,9 @@ namespace ProyectoArquitectura.Helpers
 
         //Estados Cache
         public const string Estado_Invalido = "I";
+
+        //
+        public const int Byte = 4;
+    
     }
 }

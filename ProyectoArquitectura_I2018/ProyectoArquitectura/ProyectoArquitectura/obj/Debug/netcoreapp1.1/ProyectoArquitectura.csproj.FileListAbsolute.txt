@@ -7,3 +7,14 @@ C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\Proy
 C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.AssemblyInfo.cs
 C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.dll
 C:\Users\carlos.esquivel\Desktop\Carlos\Arqui\Segunda parte\Proyecto\Codigo\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.pdb
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\bin\Debug\netcoreapp1.1\ProyectoArquitectura.deps.json
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\bin\Debug\netcoreapp1.1\ProyectoArquitectura.runtimeconfig.json
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\bin\Debug\netcoreapp1.1\ProyectoArquitectura.runtimeconfig.dev.json
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\bin\Debug\netcoreapp1.1\ProyectoArquitectura.dll
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\bin\Debug\netcoreapp1.1\ProyectoArquitectura.pdb
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.csprojResolveAssemblyReference.cache
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.csproj.CoreCompileInputs.cache
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.AssemblyInfoInputs.cache
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.AssemblyInfo.cs
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.dll
+C:\Users\A62066\Desktop\Tarea arqui\ProyectoArquiMIPS\ProyectoArquitectura_I2018\ProyectoArquitectura\ProyectoArquitectura\obj\Debug\netcoreapp1.1\ProyectoArquitectura.pdb

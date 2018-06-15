@@ -8,6 +8,12 @@ using System.Text;
 
 namespace ProyectoArquitectura
 {
+    //QUien hace los cambios de contexto? ==> hilo de control
+    //La idea es tener una doble barrera para la sincronizacion de los ciclos en los hilos que corren hilillos
+    // Cuando llegamos a la primera barrera solo el hilo de control hace cosas de sincronizacion y ver que se cambia de contexto y asi
+    //
+
+
     public class Proceso
     {
         Memoria mem;
@@ -17,14 +23,19 @@ namespace ProyectoArquitectura
         Bus busDatos;
         Bus busInstrucciones;
 
+        //Si tenemos solo un reloj aca o si tenemos el valor en el nucleo como una lista.
+        int reloj;
+
         public Proceso()
         {
             this.mem = new Memoria();
             this.contexto = new List<Contexto>();
             this.nucleo0 = new Nucleo(Constantes.Numero_Bloques_Nucleo_0, Constantes.Numero_Hilos_Bloque_0);
-            this.nucleo1 = new Nucleo(Constantes.Numero_Bloques_Nucleo_0,Constantes.Numero_Hilos_Bloque_1);
+            this.nucleo1 = new Nucleo(Constantes.Numero_Bloques_Nucleo_1,Constantes.Numero_Hilos_Bloque_1);
             busDatos = new Bus();
             busInstrucciones = new Bus();
+
+            reloj = 0;
 
             inicializarMemoria();
         }
