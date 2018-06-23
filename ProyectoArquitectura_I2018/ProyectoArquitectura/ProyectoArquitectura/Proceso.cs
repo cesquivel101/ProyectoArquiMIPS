@@ -30,8 +30,8 @@ namespace ProyectoArquitectura
         {
             this.mem = new Memoria();
             this.contexto = new List<Contexto>();
-            this.nucleo0 = new Nucleo(Constantes.Numero_Bloques_Nucleo_0, Constantes.Numero_Hilos_Bloque_0);
-            this.nucleo1 = new Nucleo(Constantes.Numero_Bloques_Nucleo_1,Constantes.Numero_Hilos_Bloque_1);
+            this.nucleo0 = new Nucleo();
+            this.nucleo1 = new Nucleo();
             busDatos = new Bus();
             busInstrucciones = new Bus();
 
@@ -61,9 +61,9 @@ namespace ProyectoArquitectura
 
         private void inicializarMemoriaInstrucciones(List<string> todosBytes)
         {
-            
+
             int cantidadDeValoresXBloque = Constantes.Num_Valores_X_Palabra_Instruccion * Constantes.Num_Palabras_X_Bloque;
-            for(int j = 0; j < todosBytes.Count;j+=cantidadDeValoresXBloque)
+            for (int j = 0; j < todosBytes.Count; j += cantidadDeValoresXBloque)
             {
                 string[] nuevoBloque = new string[cantidadDeValoresXBloque];
                 for (int i = 0; i < cantidadDeValoresXBloque; i++)
@@ -90,14 +90,14 @@ namespace ProyectoArquitectura
             int posicionInicialPC = Constantes.Posicion_Inicial_Memoria_instrucciones;
             int contadorIdsHilillos = 0;
             int posicionInstruccionFinalHilillo = -1;
-            List<int> indiceDeFinalizacionesDeHilo = Misc.TodosLosIndices(Constantes.Codigo_Fin,todosBytes);
+            List<int> indiceDeFinalizacionesDeHilo = Misc.TodosLosIndices(Constantes.Codigo_Fin, todosBytes);
             for (int i = 0; i < indiceDeFinalizacionesDeHilo.Count; i++)
             {
                 if (i != 0)
                 {
-                    posicionInicialPC = Constantes.Posicion_Inicial_Memoria_instrucciones + indiceDeFinalizacionesDeHilo[i-1]+Constantes.Num_Valores_X_Palabra_Instruccion;
+                    posicionInicialPC = Constantes.Posicion_Inicial_Memoria_instrucciones + indiceDeFinalizacionesDeHilo[i - 1] + Constantes.Num_Valores_X_Palabra_Instruccion;
                 }
-                posicionInstruccionFinalHilillo = indiceDeFinalizacionesDeHilo[i]+Constantes.Posicion_Inicial_Memoria_instrucciones;
+                posicionInstruccionFinalHilillo = indiceDeFinalizacionesDeHilo[i] + Constantes.Posicion_Inicial_Memoria_instrucciones;
                 Contexto nuevo = new Contexto(posicionInicialPC, contadorIdsHilillos, posicionInstruccionFinalHilillo);
                 contadorIdsHilillos++;
                 contexto.Add(nuevo);
@@ -112,7 +112,5 @@ namespace ProyectoArquitectura
                 mem.Datos.Add(new Bloque(datos));
             }
         }
-
-
     }
 }

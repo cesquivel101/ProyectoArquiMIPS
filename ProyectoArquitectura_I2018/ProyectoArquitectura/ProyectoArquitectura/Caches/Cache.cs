@@ -10,10 +10,10 @@ namespace ProyectoArquitectura.Caches
     {
         public List<BloqueCache> Bloques;
         //Tipo 0 es para cache de datos
-        public Cache(int numeroDeBloques, int tipo) {
+        public Cache(int tipo) {
             this.Bloques = new List<BloqueCache>();
             int tamanioBloque = tipo == 0 ? Constantes.Cache_Datos_Tamanio_Bloque : Constantes.Cache_Instrucciones_Tamanio_Bloque;
-            for(int i = 0; i < numeroDeBloques;i++)
+            for(int i = 0 ; i < Constantes.Numero_Bloques_Cache ; i++)
             {
                 this.Bloques.Add(new BloqueCache(i,tamanioBloque));
             }
