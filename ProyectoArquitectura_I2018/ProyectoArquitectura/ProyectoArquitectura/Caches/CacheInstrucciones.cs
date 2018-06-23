@@ -18,5 +18,13 @@ namespace ProyectoArquitectura.Caches
                 this.Bloques.Add(new BloqueCacheInstrucciones(i));
             }
         }
+
+        public void imprimir()
+        {
+            foreach (BloqueCacheInstrucciones bl in this.Bloques)
+            {
+                bl.imprimir();
+            }
+        }
     }
 }

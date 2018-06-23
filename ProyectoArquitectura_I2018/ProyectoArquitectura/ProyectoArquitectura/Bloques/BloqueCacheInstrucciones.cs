@@ -16,6 +16,18 @@ namespace ProyectoArquitectura.Bloques
         {
             this.Estado = Constantes.Estado_Invalido;
             this.Etiqueta = etiqueta;
+            this.Bloque = new BloqueInstrucciones();
+        }
+
+        public void imprimir()
+        {
+            Console.Write("Estado:" + this.Estado+";");
+            Console.Write("Etiqueta:" + this.Etiqueta);
+            Console.WriteLine();
+            if (this.Bloque != null)
+            {
+                Bloque.imprimir();
+            }
         }
     }
 }

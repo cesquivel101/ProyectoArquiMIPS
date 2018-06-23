@@ -11,12 +11,14 @@ namespace ProyectoArquitectura.Bloques
         public BloqueDatos Bloque { get; set; }
         public string Estado { get; set; }
         public int Etiqueta { get; set; }
+        public string Estado_Posicion { get; set; }
 
         public BloqueCacheDatos(int etiqueta)
         {
 
             this.Estado = Constantes.Estado_Invalido;
             this.Etiqueta = etiqueta;
+            this.Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
         }
 
 

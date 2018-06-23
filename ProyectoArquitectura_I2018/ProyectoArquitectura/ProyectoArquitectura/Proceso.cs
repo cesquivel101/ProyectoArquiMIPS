@@ -19,6 +19,7 @@ namespace ProyectoArquitectura
     {
         Memoria mem;
         List<Contexto> contexto;
+        List<Contexto> contextoFinal;
         Nucleo nucleo0;
         Nucleo nucleo1;
         Bus busDatos;
@@ -35,6 +36,7 @@ namespace ProyectoArquitectura
             this.nucleo1 = new Nucleo();
             busDatos = new Bus();
             busInstrucciones = new Bus();
+            this.contextoFinal = new List<Contexto>();
 
             reloj = 0;
 
@@ -50,58 +52,75 @@ namespace ProyectoArquitectura
                 c.imprimir();
             }
 
-            iniciarHilo(ref nucleo0);
+            //iniciarHilo(ref nucleo0);
 
-            nucleo0.RegistroInstruccion.imprimir();
+            //nucleo0.RegistroInstruccion.imprimir();
 
-            //Thread principal = Thread.CurrentThread;
-            //principal.Name = "Principal";
+            Thread principal = Thread.CurrentThread;
+            principal.Name = "Principal";
 
-            //ThreadStart hiloNucleo0Ref = new ThreadStart(() => iniciarHilo(ref nucleo0));
-            //Thread hiloNucleo0 = new Thread(hiloNucleo0Ref);
+            Contexto contextoActual0 = contexto[0];
+            contexto.RemoveAt(0);
 
-            //ThreadStart hiloNucleo1Ref = new ThreadStart(() => iniciarHilo(ref nucleo1));
-            //Thread hiloNucleo1 = new Thread(hiloNucleo1Ref);
+            ThreadStart hiloNucleo0Ref = new ThreadStart(() => iniciarHilo(ref nucleo0,ref contextoActual0));
+            Thread hiloNucleo0 = new Thread(hiloNucleo0Ref);
+            hiloNucleo0.Start();
+
+            Contexto contextoActual1 = contexto[0];
+            contexto.RemoveAt(0);
+            ThreadStart hiloNucleo1Ref = new ThreadStart(() => iniciarHilo(ref nucleo1,ref contextoActual1));
+            Thread hiloNucleo1 = new Thread(hiloNucleo1Ref);
+            hiloNucleo1.Start();
+
+            /*Si ya se termino el quantum, hay que guardar el contexto*/
+            //if (true)
+            //{
+            //    contextoActual.Registros = nucleo.Registros;
+            //    contextoActual.PC = nucleo.PC;
+            //    contexto.Add(contextoActual);
+            //}
 
         }
 
-        public void iniciarHilo(ref Nucleo nucleo)
+        public void iniciarHilo(ref Nucleo nucleo,ref Contexto contextoActual)
         {
             //ir a memoria y cargar la instruccion
             //Cargar el contexto
-            Contexto contextoActual = contexto[0];
-            contexto.RemoveAt(0);
+
+
 
             nucleo.PC = contextoActual.PC;
-
-            //No estoy seguro que sea entre 4
-            //int bloqueInstruccionMemoria = (nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) / Constantes.Numero_Bloques_Cache;
-            //int bloqueInstruccionCache = bloqueInstruccionMemoria % Constantes.Numero_Bloques_Cache;
-
-            int bloqueMemoria = (nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) / 16; //Poner 16 en constante
-            int palabra = ((nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) % 16) / Constantes.Numero_Bloques_Cache;
-            int posicionEnCache = bloqueMemoria % Constantes.Numero_Bloques_Cache;
-
-            if (nucleo.CacheInstrucciones.Bloques[posicionEnCache].Etiqueta != bloqueMemoria ||
-                nucleo.CacheInstrucciones.Bloques[posicionEnCache].Estado == Constantes.Estado_Invalido)
+            while (nucleo.PC != -1/*si se termino el quantum*/)
             {
-                //subir bloque de memoria a cache
-                while (busInstrucciones.Bloqueado)
+
+                int bloqueMemoria = (nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) / 16; //Poner 16 en constante
+                int palabra = ((nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) % 16) / Constantes.Numero_Bloques_Cache;
+                int posicionEnCache = bloqueMemoria % Constantes.Numero_Bloques_Cache;
+
+                if (nucleo.CacheInstrucciones.Bloques[posicionEnCache].Etiqueta != bloqueMemoria ||
+                    nucleo.CacheInstrucciones.Bloques[posicionEnCache].Estado == Constantes.Estado_Invalido)
                 {
-                    //probablemente haya que aumentar ciclos de reloj
+                    //subir bloque de memoria a cache
+                    while (busInstrucciones.Bloqueado)
+                    {
+                        //probablemente haya que aumentar ciclos de reloj
+                    }
+                    busInstrucciones.Bloqueado = true;
+                    //Esto sube un bloque de memoria de instrucciones a cache
+                    nucleo.CacheInstrucciones.Bloques[posicionEnCache].Bloque = mem.Instrucciones[bloqueMemoria];
+                    nucleo.CacheInstrucciones.Bloques[posicionEnCache].Etiqueta = bloqueMemoria;
+                    nucleo.CacheInstrucciones.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                    //
+                    busInstrucciones.Bloqueado = false;
                 }
-                busInstrucciones.Bloqueado = true;
-                //Esto sube un bloque de memoria de instrucciones a cache
-                nucleo.CacheInstrucciones.Bloques[posicionEnCache].Bloque = mem.Instrucciones[bloqueMemoria];
-                nucleo.CacheInstrucciones.Bloques[posicionEnCache].Etiqueta = bloqueMemoria;
-                nucleo.CacheInstrucciones.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
-                //
-                busInstrucciones.Bloqueado = false;
+
+                nucleo.RegistroInstruccion = nucleo.CacheInstrucciones.Bloques[posicionEnCache].Bloque.Instrucciones[palabra];
+
+                ProcesadorInstrucciones.procesarInstruccion(ref nucleo);
+
+                //nucleo.CacheInstrucciones.imprimir();
             }
-
-
-            nucleo.RegistroInstruccion = nucleo.CacheInstrucciones.Bloques[posicionEnCache].Bloque.Instrucciones[palabra];
-
+            //nucleo.imprimirRegistros();
         }
 
         private void inicializarMemoria()

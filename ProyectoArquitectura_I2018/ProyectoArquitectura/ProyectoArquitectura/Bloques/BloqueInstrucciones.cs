@@ -10,7 +10,7 @@ namespace ProyectoArquitectura.Bloques
 
         public BloqueInstrucciones()
         {
-
+            this.Instrucciones = new List<IR>();
         }
 
         public BloqueInstrucciones(List<IR> instrucciones)
