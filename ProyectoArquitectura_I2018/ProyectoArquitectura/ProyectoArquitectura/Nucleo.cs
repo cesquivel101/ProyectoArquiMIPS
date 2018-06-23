@@ -10,25 +10,17 @@ namespace ProyectoArquitectura
     {
         public Cache CacheDatos { get; set; }
         public Cache CacheInstrucciones { get; set; }
-        //Como maximo hay 2
-        public List<InformacionDeEjecucion> InfoEjecucion{ get; set; }
-        //Como maximo hay 2
-        public List<IR> RegistroInstruccion { get; set; }
-
-        public List<int> PC { get; set; }
-        //Como maximo hay 2
-        public List<int> Reloj { get; set; }
-        public Nucleo( int numeroBloques, int numInfoEjecucion)
+        public InformacionDeEjecucion InfoEjecucion{ get; set; }
+        public IR RegistroInstruccion { get; set; }
+        public int PC { get; set; }
+        public int Reloj { get; set; }
+        public Nucleo()
         {
-            this.CacheDatos = new Cache(numeroBloques, Constantes.Tipo_Cache_Datos);
-            this.CacheInstrucciones = new Cache(numeroBloques, Constantes.Tipo_Cache_Instrucciones);
-            this.InfoEjecucion = new List<InformacionDeEjecucion>();
-            for (int i = 0; i < numInfoEjecucion; i++)
-            {
-                this.InfoEjecucion.Add(new InformacionDeEjecucion());
-            }
-            this.RegistroInstruccion = new List<IR>();
-            this.Reloj = new List<int>();
+            this.CacheDatos = new Cache(Constantes.Tipo_Cache_Datos);
+            this.CacheInstrucciones = new Cache(Constantes.Tipo_Cache_Instrucciones);
+            this.InfoEjecucion = new InformacionDeEjecucion();
+            this.RegistroInstruccion = new IR();
+            this.Reloj = new int();
         }
     }
 }
