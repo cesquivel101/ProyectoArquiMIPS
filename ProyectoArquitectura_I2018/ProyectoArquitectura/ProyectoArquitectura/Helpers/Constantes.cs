@@ -15,6 +15,8 @@
 
         public const int Numero_Bloques_Cache = 4;
 
+        public const int Cantidad_Registros = 32;
+
         //Codigos
         public const string Codigo_Fin = "63";
 

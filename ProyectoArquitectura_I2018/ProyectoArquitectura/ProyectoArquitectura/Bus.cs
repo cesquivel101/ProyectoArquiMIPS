@@ -6,7 +6,7 @@ namespace ProyectoArquitectura
 {
     public class Bus
     {
-        public string IDHilillo { get; set; }
+        //public string IDHilillo { get; set; }
         public bool Bloqueado { get; set; }
     }
 }

@@ -9,31 +9,29 @@ namespace ProyectoArquitectura.Memorias
 {
     public class Memoria
     {
-        public List<Bloque> Datos { get; set; }
-        public List<Bloque> Instrucciones { get; set; }
+        public List<BloqueDatos> Datos { get; set; }
+        public List<BloqueInstrucciones> Instrucciones { get; set; }
 
         public Memoria()
         {
-            this.Datos = new List<Bloque>();
-            this.Instrucciones = new List<Bloque>();
+            this.Datos = new List<BloqueDatos>();
+            this.Instrucciones = new List<BloqueInstrucciones>();
         }
 
         public void Imprimir()
         {
             Console.WriteLine("Datos");
-            foreach (Bloque b in this.Datos)
+            foreach (BloqueDatos b in this.Datos)
             {
                 b.imprimir();
             }
             Console.WriteLine("-------------");
             Console.WriteLine("Instrucciones");
-            foreach (Bloque b in this.Instrucciones)
+            foreach (BloqueInstrucciones b in this.Instrucciones)
             {
                 b.imprimir();
             }
         }
-
-
 
     }
 }

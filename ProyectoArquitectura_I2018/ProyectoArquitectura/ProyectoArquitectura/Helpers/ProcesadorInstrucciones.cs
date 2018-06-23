@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoArquitectura.Memorias;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -55,8 +56,10 @@ namespace ProyectoArquitectura.Helpers
             }
         }
 
-        public void procesarLW(ref Nucleo nucleo, ref Bus bus)
+
+        public void procesarLW(ref Nucleo nucleo, ref Bus bus,ref Memoria datos )
         {
+
 
         }
 

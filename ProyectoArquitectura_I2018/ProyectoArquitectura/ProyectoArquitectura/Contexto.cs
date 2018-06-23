@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoArquitectura.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,7 +28,7 @@ namespace ProyectoArquitectura
 
         public Contexto()
         {
-            inicializarRegistros(-1);
+            inicializarRegistros(0);
             this.PC = 0;
             this.IDHilillo = -1;
             this.PosicionInstruccionFinal = -1;
@@ -37,7 +38,7 @@ namespace ProyectoArquitectura
 
         public Contexto(int pc,int idHilillo, int posicionInstruccionFinal)
         {
-            inicializarRegistros(-1);
+            inicializarRegistros(0);
             this.PC = pc;
             this.IDHilillo = idHilillo;
             this.PosicionInstruccionFinal = posicionInstruccionFinal;
@@ -49,7 +50,7 @@ namespace ProyectoArquitectura
         public void inicializarRegistros(int valorInicial)
         {
             this.Registros = new List<int>();
-            for (int i = 0; i < this.Registros.Count; i++)
+            for (int i = 0; i < Constantes.Cantidad_Registros; i++)
             {
                 this.Registros.Add(valorInicial);
             }

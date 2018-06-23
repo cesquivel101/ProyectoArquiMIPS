@@ -8,19 +8,20 @@ namespace ProyectoArquitectura
 {
     public class Nucleo
     {
-        public Cache CacheDatos { get; set; }
-        public Cache CacheInstrucciones { get; set; }
-        public InformacionDeEjecucion InfoEjecucion{ get; set; }
+        public CacheDatos CacheDatos { get; set; }
+        public CacheInstrucciones CacheInstrucciones { get; set; }
+        //public InformacionDeEjecucion InfoEjecucion{ get; set; }
         public IR RegistroInstruccion { get; set; }
         public int PC { get; set; }
         public int Reloj { get; set; }
         public Nucleo()
         {
-            this.CacheDatos = new Cache(Constantes.Tipo_Cache_Datos);
-            this.CacheInstrucciones = new Cache(Constantes.Tipo_Cache_Instrucciones);
-            this.InfoEjecucion = new InformacionDeEjecucion();
+            this.CacheDatos = new CacheDatos();
+            this.CacheInstrucciones = new CacheInstrucciones();
+            //this.InfoEjecucion = new InformacionDeEjecucion();
             this.RegistroInstruccion = new IR();
             this.Reloj = new int();
         }
+
     }
 }

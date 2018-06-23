@@ -15,10 +15,11 @@ namespace ProyectoArquitectura.Bloques
 
         public BloqueDatos(string[] palabras)
         {
-            this.Palabras[0] = Int32.Parse(palabras[0]);
-            this.Palabras[1] = Int32.Parse(palabras[1]);
-            this.Palabras[1] = Int32.Parse(palabras[2]);
-            this.Palabras[1] = Int32.Parse(palabras[3]);
+            this.Palabras = new List<int>();
+            foreach (string pal in palabras)
+            {
+                this.Palabras.Add(Int32.Parse(pal));
+            }
         }
 
         public void imprimir()

@@ -5,8 +5,4 @@
     <TargetFramework>netcoreapp1.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Bloques\BloqueDatos.cs" />
-  </ItemGroup>
-
 </Project>

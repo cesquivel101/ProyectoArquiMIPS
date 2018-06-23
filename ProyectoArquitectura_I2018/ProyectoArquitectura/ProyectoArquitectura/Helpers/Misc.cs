@@ -18,5 +18,13 @@ namespace ProyectoArquitectura.Helpers
             }
             return indices;
         }
+
+        public static void calcularDireccionDeMemoria()
+        {
+
+        }
+
+        
     }
+
 }

@@ -5,15 +5,15 @@ using System.Text;
 
 namespace ProyectoArquitectura.Bloques
 {
-    public class BloqueCache : Bloque
+    public class BloqueCacheInstrucciones
     {
         private const int Valor_Inicializacion_Cache = 0;
+        public BloqueInstrucciones Bloque { get; set; }
         public string Estado { get; set; }
         public int Etiqueta { get; set; }
 
-        public BloqueCache(int etiqueta, int tamanioBloque):base(tamanioBloque, Valor_Inicializacion_Cache)
+        public BloqueCacheInstrucciones(int etiqueta)
         {
-
             this.Estado = Constantes.Estado_Invalido;
             this.Etiqueta = etiqueta;
         }
