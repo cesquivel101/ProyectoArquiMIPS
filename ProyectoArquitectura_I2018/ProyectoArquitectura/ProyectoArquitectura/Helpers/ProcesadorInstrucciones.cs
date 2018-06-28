@@ -7,7 +7,7 @@ namespace ProyectoArquitectura.Helpers
 {
     public class ProcesadorInstrucciones
     {
-        
+
         //Este metodo no procesa ni LW ni SW
         public static void procesarInstruccion(ref Nucleo nucleo)
         {
@@ -58,7 +58,7 @@ namespace ProyectoArquitectura.Helpers
         }
 
 
-        public void procesarLW(ref Nucleo nucleo, ref Nucleo otro, ref Bus bus,ref Memoria memoria )
+        public void procesarLW(ref Nucleo nucleo, ref Nucleo otro, ref Bus bus, ref Memoria memoria)
         {
             IR insActual = nucleo.RegistroInstruccion;
             int posMemoria = insActual.Rf1 + insActual.Rd_inm;
@@ -73,7 +73,7 @@ namespace ProyectoArquitectura.Helpers
             }
 
             //Verificar etiqueta
-            //En caso de que SI este
+            //En caso de que SI este el bloque
             if (nucleo.CacheDatos.Bloques[posicionEnCache].Etiqueta == bloqueMemoria)
             {
                 string estadoActualBloque = nucleo.CacheDatos.Bloques[posicionEnCache].Estado;
@@ -81,7 +81,6 @@ namespace ProyectoArquitectura.Helpers
                 //Hit
                 if (estadoActualBloque != Constantes.Estado_Invalido)
                 {
-
                     nucleo.Registros[insActual.Rf2_Rd] = nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra];
                 }
                 //Miss
@@ -112,13 +111,19 @@ namespace ProyectoArquitectura.Helpers
 
                         //esperar 40 ciclos de reloj
                     }
+                    else
+                    {
+                        nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = memoria.Datos[bloqueMemoria];
+                        nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                        //Esperar 40 ticks
+                    }
 
                     otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
                     nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
                     bus.Bloqueado = false;
                 }
             }
-            else
+            else //En caso de que NO este el bloque
             {
                 while (bus.Bloqueado)
                 {
@@ -127,7 +132,12 @@ namespace ProyectoArquitectura.Helpers
                 bus.Bloqueado = true;
                 nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Bloqueado;
 
-                //Si mi bloque en posicionCache esta en m, deberiamos escribir primero a memoria
+                //Si mi bloque en posicionCache esta en M, deberiamos escribir primero a memoria
+                if (nucleo.CacheDatos.Bloques[posicionEnCache].Estado == Constantes.Estado_Modificado)
+                {
+                    memoria.Datos[bloqueMemoria] = nucleo.CacheDatos.Bloques[posicionEnCache].Bloque;
+                    //Espero 40 ticks
+                }
 
                 //Verificar si esta en la otra cache
                 while (otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion == Constantes.Estado_PosicionCache_Bloqueado)
@@ -136,29 +146,166 @@ namespace ProyectoArquitectura.Helpers
                 }
                 otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Bloqueado;
 
-                ///
-
                 if (otro.CacheDatos.Bloques[posicionEnCache].Etiqueta == bloqueMemoria)
                 {
-                    //if()
+                    switch (otro.CacheDatos.Bloques[posicionEnCache].Estado)
+                    {
+                        case Constantes.Estado_Compartido:
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                            break;
+                        case Constantes.Estado_Modificado:
+                            memoria.Datos[bloqueMemoria] = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            otro.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                            //esperar 40 ciclos de reloj
+                            break;
+                        case Constantes.Estado_Invalido:
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = memoria.Datos[bloqueMemoria];
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                            //esperar 40 ciclos de reloj
+                            break;
+                    }
                 }
-
-
-                ///
+                else //Si no está en la otra caché subir de memoria
+                {
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = memoria.Datos[bloqueMemoria];
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Compartido;
+                    //Esperar 40 ticks
+                }
                 otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
                 nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
                 bus.Bloqueado = false;
-
             }
-
-
-
-
         }
 
-        public void procesarSW()
+        public void procesarSW(ref Nucleo nucleo, ref Nucleo otro, ref Bus bus, ref Memoria memoria)
         {
-            //Cada vez que reservo y no logro agarrar el bus
+            IR insActual = nucleo.RegistroInstruccion;
+            int posMemoria = insActual.Rf1 + insActual.Rd_inm;
+
+            int bloqueMemoria = posMemoria / 4; //Poner 16 en constante
+            int palabra = (posMemoria % 4) / Constantes.Numero_Bloques_Cache;
+            int posicionEnCache = bloqueMemoria % Constantes.Numero_Bloques_Cache;
+
+            while (nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion == Constantes.Estado_PosicionCache_Bloqueado)
+            {
+                //Ticks the reloj
+            }
+
+            //Verificar etiqueta
+            //En caso de que SI este el bloque
+            if (nucleo.CacheDatos.Bloques[posicionEnCache].Etiqueta == bloqueMemoria)
+            {
+                string estadoActualBloque = nucleo.CacheDatos.Bloques[posicionEnCache].Estado;
+
+                //Hit - Modificado solo escribo
+                if (estadoActualBloque != Constantes.Estado_Modificado)
+                {
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra] = nucleo.Registros[insActual.Rf2_Rd];
+                }
+                //Miss - Shared o inválido, debo revisar la otra caché
+                else
+                {
+                    while (bus.Bloqueado)
+                    {
+                        //ticks de reloj
+                    }
+                    bus.Bloqueado = true;
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Bloqueado;
+
+                    //Verificar si esta en la otra cache
+                    while (otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion == Constantes.Estado_PosicionCache_Bloqueado)
+                    {
+                        //tics de reloj
+                    }
+                    otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Bloqueado;
+
+
+                    if (otro.CacheDatos.Bloques[posicionEnCache].Etiqueta == bloqueMemoria)
+                    {
+                        if(otro.CacheDatos.Bloques[posicionEnCache].Estado == Constantes.Estado_Modificado)
+                        {
+                            //Se copia a memoria, Se pone en compartido, se copia a mi cache
+                            memoria.Datos[bloqueMemoria] = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            otro.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Invalido;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra] = nucleo.Registros[insActual.Rf2_Rd];
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Modificado;
+                            //esperar 40 ciclos de reloj
+                        }
+                        else 
+                        {
+                            otro.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Invalido;
+                        }
+                    }
+
+                    otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
+                    bus.Bloqueado = false;
+                }
+            }
+            else //En caso de que NO este el bloque
+            {
+                while (bus.Bloqueado)
+                {
+                    //ticks de reloj
+                }
+                bus.Bloqueado = true;
+                nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Bloqueado;
+
+                //Si mi bloque en posicionCache esta en M, deberiamos escribir primero a memoria
+                if (nucleo.CacheDatos.Bloques[posicionEnCache].Estado == Constantes.Estado_Modificado)
+                {
+                    memoria.Datos[bloqueMemoria] = nucleo.CacheDatos.Bloques[posicionEnCache].Bloque;
+                    //Espero 40 ticks
+                }
+
+                //Verificar si esta en la otra cache
+                while (otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion == Constantes.Estado_PosicionCache_Bloqueado)
+                {
+                    //tics de reloj
+                }
+                otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Bloqueado;
+
+                if (otro.CacheDatos.Bloques[posicionEnCache].Etiqueta == bloqueMemoria)
+                {
+                    switch (otro.CacheDatos.Bloques[posicionEnCache].Estado)
+                    {
+                        case Constantes.Estado_Compartido:
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            otro.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Invalido;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra] = nucleo.Registros[insActual.Rf2_Rd];
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Modificado;
+                            break;
+                        case Constantes.Estado_Modificado:
+                            memoria.Datos[bloqueMemoria] = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            otro.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Invalido;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = otro.CacheDatos.Bloques[posicionEnCache].Bloque;
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra] = nucleo.Registros[insActual.Rf2_Rd];
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Modificado;
+                            //esperar 40 ciclos de reloj
+                            break;
+                        case Constantes.Estado_Invalido:
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = memoria.Datos[bloqueMemoria];
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra] = nucleo.Registros[insActual.Rf2_Rd];
+                            nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Modificado;
+                            //esperar 40 ciclos de reloj
+                            break;
+                    }
+                }
+                else //Si no está en la otra caché subir de memoria
+                {
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Bloque = memoria.Datos[bloqueMemoria];
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Bloque.Palabras[palabra] = nucleo.Registros[insActual.Rf2_Rd];
+                    nucleo.CacheDatos.Bloques[posicionEnCache].Estado = Constantes.Estado_Modificado;
+                    //Esperar 40 ticks
+                }
+                otro.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
+                nucleo.CacheDatos.Bloques[posicionEnCache].Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
+                bus.Bloqueado = false;
+            }
         }
     }
 }
