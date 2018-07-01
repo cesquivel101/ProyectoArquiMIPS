@@ -6,6 +6,9 @@ using System.Text;
 
 namespace ProyectoArquitectura
 {
+    /// <summary>
+    /// Clase que modela un nucleo
+    /// </summary>
     public class Nucleo
     {
         public CacheDatos CacheDatos { get; set; }

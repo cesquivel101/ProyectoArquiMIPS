@@ -7,6 +7,9 @@ using System.Text;
 
 namespace ProyectoArquitectura.Memorias
 {
+    /// <summary>
+    /// Clase que modela las memorias de la simulacion
+    /// </summary>
     public class Memoria
     {
         public List<BloqueDatos> Datos { get; set; }

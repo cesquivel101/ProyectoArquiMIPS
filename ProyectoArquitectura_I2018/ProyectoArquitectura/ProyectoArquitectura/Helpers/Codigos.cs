@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ProyectoArquitectura.Helpers
 {
+    /// <summary>
+    /// Codigos de operacion
+    /// </summary>
     public static class Codigos
     {
         public const int CODIGO_DADDI = 8;

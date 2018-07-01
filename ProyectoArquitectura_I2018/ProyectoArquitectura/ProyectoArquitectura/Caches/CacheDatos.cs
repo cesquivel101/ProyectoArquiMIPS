@@ -6,6 +6,9 @@ using System.Text;
 
 namespace ProyectoArquitectura.Caches
 {
+    /// <summary>
+    /// Clase que simula una cache de datos
+    /// </summary>
     public class CacheDatos
     {
         public List<BloqueCacheDatos> Bloques;

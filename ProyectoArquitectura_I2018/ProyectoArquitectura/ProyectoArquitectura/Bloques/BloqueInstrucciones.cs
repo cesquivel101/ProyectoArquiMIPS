@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ProyectoArquitectura.Bloques
 {
+    /// <summary>
+    /// Clase que simula un bloque de instrucciones
+    /// </summary>
     public class BloqueInstrucciones
     {
         public List<IR> Instrucciones { get; set; }

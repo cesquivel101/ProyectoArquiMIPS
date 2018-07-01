@@ -12,8 +12,6 @@ namespace ProyectoArquitectura
         public int IDHilillo { get; set; }
         //Esto lo usamos para saber cuando se acaba el hilillo
         //Lo calculamos en el momento en que estamos cargando los hilillos a memoria
-        //No estoy seguro de dejar esto o si nos sirve, podemos asumir que si el PC esta en finalizado (algun valor -1 o asi)
-        //Podemos usar eso para inferir que se termino el hilillo.
         public int PosicionInstruccionFinal { get; set; }
 
         //Hay que agregar el timpo total de ejecucion del hilillo ==> en tiempos de ciclo de la maquina//
@@ -22,10 +20,10 @@ namespace ProyectoArquitectura
 
         public int CicloFinal { get; set; }
 
-
-        //No estoy seguro si va aca
         public int Quantum { get; set; }
-
+        /// <summary>
+        /// Cuanto tardo el hilillo en ejecutarse
+        /// </summary>
         private int numCiclosEjecutandose;
 
         public Contexto()

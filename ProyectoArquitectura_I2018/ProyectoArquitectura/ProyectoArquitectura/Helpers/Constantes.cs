@@ -1,5 +1,8 @@
 ﻿namespace ProyectoArquitectura.Helpers
 {
+    /// <summary>
+    /// Clase con constantes que se usan en distintos lugares
+    /// </summary>
     public static class Constantes
     {
         public const int Num_Valores_X_Palabra_Instruccion = 4;

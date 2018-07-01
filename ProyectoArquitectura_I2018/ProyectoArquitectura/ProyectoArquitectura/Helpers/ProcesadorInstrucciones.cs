@@ -7,8 +7,11 @@ namespace ProyectoArquitectura.Helpers
 {
     public class ProcesadorInstrucciones
     {
-
-        //Este metodo no procesa ni LW ni SW
+        //TODO: AGREGAR LW Y SW
+        /// <summary>
+        /// Metodo que procesa una instruccion en el IR del nucleo que entra como parametro
+        /// </summary>
+        /// <param name="nucleo">Nucleo que va a ejecutar la instruccion</param>
         public static void procesarInstruccion(ref Nucleo nucleo)
         {
             nucleo.PC += Constantes.Byte;

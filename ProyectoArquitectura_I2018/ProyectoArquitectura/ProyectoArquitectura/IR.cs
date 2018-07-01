@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ProyectoArquitectura
 {
+    /// <summary>
+    /// Clase que model el registro de instruccion
+    /// </summary>
     public class IR
     {
         public int CO { get; set; }

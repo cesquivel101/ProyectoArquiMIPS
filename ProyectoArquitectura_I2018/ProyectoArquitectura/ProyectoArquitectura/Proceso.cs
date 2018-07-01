@@ -14,7 +14,9 @@ namespace ProyectoArquitectura
     // Cuando llegamos a la primera barrera solo el hilo de control hace cosas de sincronizacion y ver que se cambia de contexto y asi
     //
 
-
+    /// <summary>
+    /// Clase que modela la simulacion de un procesador mips
+    /// </summary>
     public class Proceso
     {
         Memoria mem;
@@ -82,19 +84,22 @@ namespace ProyectoArquitectura
 
         }
 
+        //TODO: cambiar el nombre del metodo
+        /// <summary>
+        /// Metodo que se encarga de poner una instruccion de la memoria de instrucciones en cache y luego en el IR del nucleo que entra como parametro
+        /// </summary>
+        /// <param name="nucleo">nucleo a utilizar</param>
+        /// <param name="contextoActual">Instrucciones de los hilillos a ejecutar</param>
         public void iniciarHilo(ref Nucleo nucleo,ref Contexto contextoActual)
         {
             //ir a memoria y cargar la instruccion
             //Cargar el contexto
-
-
-
             nucleo.PC = contextoActual.PC;
             while (nucleo.PC != -1/*si se termino el quantum*/)
             {
 
-                int bloqueMemoria = (nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) / 16; //Poner 16 en constante
-                int palabra = ((nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) % 16) / Constantes.Numero_Bloques_Cache;
+                int bloqueMemoria = (nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) / Constantes.Cache_Instrucciones_Tamanio_Bloque;
+                int palabra = ((nucleo.PC - Constantes.Posicion_Inicial_Memoria_instrucciones) % Constantes.Cache_Instrucciones_Tamanio_Bloque) / Constantes.Numero_Bloques_Cache;
                 int posicionEnCache = bloqueMemoria % Constantes.Numero_Bloques_Cache;
 
                 if (nucleo.CacheInstrucciones.Bloques[posicionEnCache].Etiqueta != bloqueMemoria ||
@@ -116,6 +121,7 @@ namespace ProyectoArquitectura
 
                 nucleo.RegistroInstruccion = nucleo.CacheInstrucciones.Bloques[posicionEnCache].Bloque.Instrucciones[palabra];
 
+                //Esto probablemente deberia ir fuera de este metodo
                 ProcesadorInstrucciones.procesarInstruccion(ref nucleo);
 
                 //nucleo.CacheInstrucciones.imprimir();
@@ -124,6 +130,7 @@ namespace ProyectoArquitectura
         }
 
         /// <summary>
+        /// Metodo que lee los hilillos de los archivos de texto y los pone en memoria de instrucciones
         /// Si nombresHIlillos es nulo, lee todos los .txt del root
         /// </summary>
         /// <param name="nombresHilillos">nombres de los hilillos a leer</param>
@@ -136,6 +143,10 @@ namespace ProyectoArquitectura
 
         }
 
+        /// <summary>
+        /// Metodo que toma una hiliera con todas las instrucciones de los hilillos y las pone en memoria
+        /// </summary>
+        /// <param name="todosBytes">todas las instrucciones leidas de todos los hilillos</param>
         private void inicializarMemoriaInstrucciones(List<string> todosBytes)
         {
 
@@ -143,15 +154,10 @@ namespace ProyectoArquitectura
             for (int j = 0; j < todosBytes.Count; j += cantidadDeValoresXBloque)
             {
                 List<IR> bloquesNuevos = new List<IR>();
-                //string[] nuevoBloque = new string[cantidadDeValoresXBloque];
                 for (int i = 0; i < cantidadDeValoresXBloque; i+= Constantes.Num_Valores_X_Palabra_Instruccion)
                 {
                     int posicionBytes = j + i;
-                    
-                    //for (int k= 0;k < Constantes.Num_Valores_X_Palabra_Instruccion;k++)
 
-                    //Este calculo esta mal
-                    //int posicionBytes = j + i;
                     if (posicionBytes < todosBytes.Count)
                     {
                         IR nuevo = new IR(Int32.Parse(todosBytes[posicionBytes]),
@@ -159,7 +165,6 @@ namespace ProyectoArquitectura
                                           Int32.Parse(todosBytes[posicionBytes+2]),
                                           Int32.Parse(todosBytes[posicionBytes+3]));
                         bloquesNuevos.Add(nuevo);
-                        //nuevoBloque[i] = todosBytes[posicionBytes];
                     }
                     else
                     {
@@ -172,6 +177,10 @@ namespace ProyectoArquitectura
 
         }
 
+        /// <summary>
+        /// Metodo que inicializa el contexto con los hilillos
+        /// </summary>
+        /// <param name="todosBytes"></param>
         private void inicializarContexto(List<string> todosBytes)
         {
             int posicionInicialPC = Constantes.Posicion_Inicial_Memoria_instrucciones;
@@ -191,6 +200,9 @@ namespace ProyectoArquitectura
             }
         }
 
+        /// <summary>
+        /// Metodo que inicializa la memoria de datos con 1's
+        /// </summary>
         private void inicializarMemoriaDatos()
         {
             for (int i = 0; i < Constantes.Numero_Bloques_Memoria_Datos; i++)

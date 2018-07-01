@@ -6,8 +6,17 @@ using ProyectoArquitectura.Memorias;
 
 namespace ProyectoArquitectura.Helpers
 {
+    /// <summary>
+    /// Clase con metodos utilitarios
+    /// </summary>
     public static class Misc
     {
+        /// <summary>
+        /// Metodo que devuelve todos los indices en los que aBuscar esta presente en una lista
+        /// </summary>
+        /// <param name="aBuscar">hilera a buscar dentro de lista</param>
+        /// <param name="listaObjetivo">lista de la cual sacar los indices</param>
+        /// <returns></returns>
         public static List<int> TodosLosIndices(string aBuscar, List<string> listaObjetivo)
         {
             List<int> indices = new List<int>();
@@ -21,6 +30,10 @@ namespace ProyectoArquitectura.Helpers
             return indices;
         }
 
+        /// <summary>
+        /// Metodo que lee los hilillos a poner en memoria
+        /// </summary>
+        /// <returns>Lista de nombres de los hilillos</returns>
         public static List<string> leerNombresHilillos()
         {
             List<string> nombres = new List<string>();
@@ -35,7 +48,9 @@ namespace ProyectoArquitectura.Helpers
         public static int leerQuantum()
         {
             int quantum = -1;
-            Console.Write("Por favor digite el quantum deseado: ");
+            Console.Write("Por favor digite el quantum deseado y luego presione enter: ");
+            string entradaUsuario = Console.ReadLine();
+            quantum = Int32.Parse(entradaUsuario);
             return quantum;
 
         }

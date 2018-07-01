@@ -4,6 +4,9 @@ using System.Text;
 
 namespace ProyectoArquitectura.Bloques
 {
+    /// <summary>
+    /// Clase que simula un bloque de datos
+    /// </summary>
     public class BloqueDatos
     {
         public List<int> Palabras { get; set; }

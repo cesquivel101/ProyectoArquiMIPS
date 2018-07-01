@@ -5,12 +5,23 @@ using System.Text;
 
 namespace ProyectoArquitectura.Bloques
 {
+    /// <summary>
+    /// Clase que simula un bloque de cache de datos
+    /// </summary>
     public class BloqueCacheDatos
     {
-        private const int Valor_Inicializacion_Cache = 0;
         public BloqueDatos Bloque { get; set; }
+        /// <summary>
+        /// Invalido, Compartido o Modificado (I,C o M)
+        /// </summary>
         public string Estado { get; set; }
+        /// <summary>
+        /// Numero del bloque en la posicion de la cache
+        /// </summary>
         public int Etiqueta { get; set; }
+        /// <summary>
+        /// Bloqueado o Libre (B o L)
+        /// </summary>
         public string Estado_Posicion { get; set; }
 
         public BloqueCacheDatos(int etiqueta)

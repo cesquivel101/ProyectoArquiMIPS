@@ -7,6 +7,9 @@ using System.Linq;
 
 namespace ProyectoArquitectura.Helpers
 {
+    /// <summary>
+    /// Clase que lee archivos de texto (hilillos) y los formatea para ser puestos en memoria de instrucciones
+    /// </summary>
     public class LectorHilillos
     {
 
