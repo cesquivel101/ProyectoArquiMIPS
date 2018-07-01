@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
+using ProyectoArquitectura.Memorias;
 
 namespace ProyectoArquitectura.Helpers
 {
@@ -19,11 +21,45 @@ namespace ProyectoArquitectura.Helpers
             return indices;
         }
 
-        public static void calcularDireccionDeMemoria()
+        public static List<string> leerNombresHilillos()
         {
+            List<string> nombres = new List<string>();
+
+            Console.WriteLine("Digite los nombres de los hilillos(sin el .txt) separados por espacio y presione enter");
+            Console.WriteLine("Ejemplo:'0 1 2'");
+            string entradaUsuario = Console.ReadLine();
+            nombres = entradaUsuario.Split(' ').ToList();
+            return nombres;
+        }
+
+        public static int leerQuantum()
+        {
+            int quantum = -1;
+            Console.Write("Por favor digite el quantum deseado: ");
+            return quantum;
 
         }
 
+        public static void imprimirEjecucionLenta(int reloj, Nucleo n0, Nucleo n1)
+        {
+            Console.WriteLine("Reloj: " + reloj.ToString());
+            Console.WriteLine("Hilillos en ejecucion:");
+            Console.WriteLine("\t - Nucleo 0:" + n0.IDHililloEjecutandose);
+            Console.WriteLine("\t - Nucleo 1:" + n1.IDHililloEjecutandose);
+        }
+
+        public static void impresionFinal(Memoria memoria,Nucleo n0, Nucleo n1,Contexto contexto)
+        {
+            Console.WriteLine("-------------------");
+            memoria.impresionFinal();
+            Console.WriteLine("Cache de Datos Nucleo 0:");
+            n0.CacheDatos.impresionFinal();
+            Console.WriteLine("Cache de Datos Nucleo 1:");
+            n1.CacheDatos.impresionFinal();
+            contexto.impresionFinal();
+            Console.WriteLine("-------------------");
+
+        }
         
     }
 

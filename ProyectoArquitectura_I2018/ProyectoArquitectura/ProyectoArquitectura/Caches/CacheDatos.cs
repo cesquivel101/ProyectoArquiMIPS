@@ -18,5 +18,14 @@ namespace ProyectoArquitectura.Caches
                 this.Bloques.Add(new BloqueCacheDatos(i));
             }
         }
+
+        public void impresionFinal()
+        {
+            Console.WriteLine("Cache Datos:");
+            foreach (BloqueCacheDatos bcd in this.Bloques)
+            {
+                bcd.imprimir();
+            }
+        }
     }
 }

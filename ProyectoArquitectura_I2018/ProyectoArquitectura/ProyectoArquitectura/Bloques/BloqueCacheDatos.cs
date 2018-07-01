@@ -21,6 +21,10 @@ namespace ProyectoArquitectura.Bloques
             this.Estado_Posicion = Constantes.Estado_PosicionCache_Libre;
         }
 
+        public void imprimir()
+        {
+            this.Bloque.imprimir();
+        }
 
     }
 }

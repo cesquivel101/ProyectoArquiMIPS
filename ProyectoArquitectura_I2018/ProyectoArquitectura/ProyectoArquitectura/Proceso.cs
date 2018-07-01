@@ -39,8 +39,8 @@ namespace ProyectoArquitectura
             this.contextoFinal = new List<Contexto>();
 
             reloj = 0;
-
-            inicializarMemoria();
+            List<string> nombresHilillos = Misc.leerNombresHilillos();
+            inicializarMemoria(nombresHilillos);
         }
 
         public void iniciarProceso()
@@ -56,21 +56,21 @@ namespace ProyectoArquitectura
 
             //nucleo0.RegistroInstruccion.imprimir();
 
-            Thread principal = Thread.CurrentThread;
-            principal.Name = "Principal";
+            //Thread principal = Thread.CurrentThread;
+            //principal.Name = "Principal";
 
-            Contexto contextoActual0 = contexto[0];
-            contexto.RemoveAt(0);
+            //Contexto contextoActual0 = contexto[0];
+            //contexto.RemoveAt(0);
 
-            ThreadStart hiloNucleo0Ref = new ThreadStart(() => iniciarHilo(ref nucleo0,ref contextoActual0));
-            Thread hiloNucleo0 = new Thread(hiloNucleo0Ref);
-            hiloNucleo0.Start();
+            //ThreadStart hiloNucleo0Ref = new ThreadStart(() => iniciarHilo(ref nucleo0,ref contextoActual0));
+            //Thread hiloNucleo0 = new Thread(hiloNucleo0Ref);
+            //hiloNucleo0.Start();
 
-            Contexto contextoActual1 = contexto[0];
-            contexto.RemoveAt(0);
-            ThreadStart hiloNucleo1Ref = new ThreadStart(() => iniciarHilo(ref nucleo1,ref contextoActual1));
-            Thread hiloNucleo1 = new Thread(hiloNucleo1Ref);
-            hiloNucleo1.Start();
+            //Contexto contextoActual1 = contexto[0];
+            //contexto.RemoveAt(0);
+            //ThreadStart hiloNucleo1Ref = new ThreadStart(() => iniciarHilo(ref nucleo1,ref contextoActual1));
+            //Thread hiloNucleo1 = new Thread(hiloNucleo1Ref);
+            //hiloNucleo1.Start();
 
             /*Si ya se termino el quantum, hay que guardar el contexto*/
             //if (true)
@@ -123,9 +123,13 @@ namespace ProyectoArquitectura
             //nucleo.imprimirRegistros();
         }
 
-        private void inicializarMemoria()
+        /// <summary>
+        /// Si nombresHIlillos es nulo, lee todos los .txt del root
+        /// </summary>
+        /// <param name="nombresHilillos">nombres de los hilillos a leer</param>
+        private void inicializarMemoria(List<string> nombresHilillos = null)
         {
-            List<string> todosBytes = LectorHilillos.leerHilillos();
+            List<string> todosBytes =nombresHilillos == null? LectorHilillos.leerHilillos() : LectorHilillos.leerHilillos(nombresHilillos);
             inicializarMemoriaDatos();
             inicializarMemoriaInstrucciones(todosBytes);
             inicializarContexto(todosBytes);

@@ -24,7 +24,6 @@ namespace ProyectoArquitectura.Bloques
 
         public void imprimir()
         {
-            Console.Write("Palabra: ");
             foreach (int _byte in Palabras)
             {
                 Console.Write(_byte.ToString() + " ");

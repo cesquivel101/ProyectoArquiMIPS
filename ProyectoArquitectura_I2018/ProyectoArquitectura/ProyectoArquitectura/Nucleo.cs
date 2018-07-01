@@ -15,6 +15,7 @@ namespace ProyectoArquitectura
         public IR RegistroInstruccion { get; set; }
         public int PC { get; set; }
         public int Reloj { get; set; }
+        public int IDHililloEjecutandose { get; set; }
         public Nucleo()
         {
             this.CacheDatos = new CacheDatos();
@@ -27,6 +28,7 @@ namespace ProyectoArquitectura
             //this.InfoEjecucion = new InformacionDeEjecucion();
             this.RegistroInstruccion = new IR();
             this.Reloj = new int();
+            this.IDHililloEjecutandose = -1;
         }
 
         public void imprimirRegistros()

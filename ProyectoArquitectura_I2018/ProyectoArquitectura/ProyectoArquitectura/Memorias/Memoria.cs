@@ -33,5 +33,14 @@ namespace ProyectoArquitectura.Memorias
             }
         }
 
+        public void impresionFinal()
+        {
+            Console.WriteLine("Memoria Datos");
+            foreach (BloqueDatos b in this.Datos)
+            {
+                b.imprimir();
+            }
+        }
+
     }
 }

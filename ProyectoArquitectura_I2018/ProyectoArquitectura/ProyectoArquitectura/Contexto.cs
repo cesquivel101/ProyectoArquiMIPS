@@ -26,6 +26,8 @@ namespace ProyectoArquitectura
         //No estoy seguro si va aca
         public int Quantum { get; set; }
 
+        private int numCiclosEjecutandose;
+
         public Contexto()
         {
             inicializarRegistros(0);
@@ -34,6 +36,7 @@ namespace ProyectoArquitectura
             this.PosicionInstruccionFinal = -1;
             this.CicloInicial = -1;
             this.CicloFinal = -1;
+            this.numCiclosEjecutandose = -1;
         }
 
         public Contexto(int pc,int idHilillo, int posicionInstruccionFinal)
@@ -44,7 +47,7 @@ namespace ProyectoArquitectura
             this.PosicionInstruccionFinal = posicionInstruccionFinal;
             this.CicloInicial = -1;
             this.CicloFinal = -1;
-
+            this.numCiclosEjecutandose = -1;
         }
 
         public void inicializarRegistros(int valorInicial)
@@ -68,6 +71,18 @@ namespace ProyectoArquitectura
             Console.WriteLine();
             Console.WriteLine("\tPC:" + this.PC + "; IDHilillo: " + this.IDHilillo + "; PosInsFinal: " + this.PosicionInstruccionFinal);
             Console.WriteLine("---------------");
+        }
+
+        public void impresionFinal()
+        {
+            Console.WriteLine("\tRegistros:");
+            foreach (int registro in this.Registros)
+            {
+                Console.Write(registro + " ");
+            }
+            this.numCiclosEjecutandose = this.CicloFinal - this.CicloInicial;
+            Console.WriteLine("ID Hilillo: " + this.IDHilillo + "; Ciclos de ejecucion: " + this.numCiclosEjecutandose);
+
         }
     }
 }
